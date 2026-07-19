@@ -849,9 +849,17 @@ function MobileBar() {
 
 /* ================================================================== APP == */
 export default function App() {
-  // Точная высота видимой области для полноэкранного hero на iOS
+  // Полноэкранный hero на iOS:
+  //  --app-h  = видимая высота (для контента, чтобы кнопки были над панелью)
+  //  --hero-h = видимая высота + буфер (секция уходит под полупрозрачную панель
+  //             Safari, чтобы снизу не просвечивал следующий блок)
   useEffect(() => {
-    const setH = () => document.documentElement.style.setProperty('--app-h', `${window.innerHeight}px`)
+    const setH = () => {
+      const h = window.innerHeight
+      const s = document.documentElement.style
+      s.setProperty('--app-h', `${h}px`)
+      s.setProperty('--hero-h', `${h + 160}px`)
+    }
     setH()
     window.addEventListener('resize', setH)
     window.addEventListener('orientationchange', setH)

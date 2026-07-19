@@ -48,8 +48,10 @@ body {
    панелью Safari (там чёрное видео, а не следующий блок).
    .hero-visible — область контента = видимая часть экрана (--app-h ставит JS
    по window.innerHeight), чтобы кнопки не уходили под панель. */
-.hero-fill { min-height: 100vh; min-height: 100lvh; }
+.hero-fill { min-height: 100vh; min-height: 100lvh; min-height: var(--hero-h, 100lvh); }
 .hero-visible { min-height: 100vh; min-height: 100svh; min-height: var(--app-h, 100dvh); }
+/* на десктопе панелей нет — буфер не нужен, секция ровно в экран */
+@media (min-width: 768px) { .hero-fill { min-height: 100vh; } }
 
 .container-x { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 1.25rem; }
 @media (min-width: 768px){ .container-x { padding-inline: 2rem; } }
