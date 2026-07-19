@@ -114,7 +114,7 @@ function Hero() {
   const media = import.meta.env.BASE_URL
   const videoPos = 'absolute inset-y-0 right-0 h-full w-full object-cover object-[66%_center] md:w-[68%] md:object-[54%_center]'
   return (
-    <section id="top" className="h-hero relative flex items-end overflow-hidden bg-black md:items-center">
+    <section id="top" className="hero-fill relative overflow-hidden bg-black">
       {/* ---- видео: на мобиле фон, на ПК — крупный блок справа (айфон уходит вправо) ---- */}
       <video
         className={videoPos}
@@ -133,8 +133,8 @@ function Hero() {
           На мобиле видео идёт фоном, поэтому нужен лёгкий градиент снизу под текст. */}
       <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-black via-black/45 to-transparent md:hidden" />
 
-      {/* ---- текст поверх видео, слева (на ПК ближе к краю, шире и крупнее) ---- */}
-      <div className="relative z-10 w-full px-6 pb-20 pt-28 sm:px-10 md:py-0 lg:pl-16 xl:pl-24">
+      {/* ---- текст поверх видео; область = видимая часть экрана (кнопки над панелью) ---- */}
+      <div className="hero-visible relative z-10 flex w-full items-end px-6 pb-20 pt-28 sm:px-10 md:items-center md:py-0 lg:pl-16 xl:pl-24">
         <div className="max-w-[34rem] md:max-w-3xl">
           <motion.a href={REVIEW_STATS.yandex.href} target="_blank" rel="noreferrer"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}
@@ -849,6 +849,18 @@ function MobileBar() {
 
 /* ================================================================== APP == */
 export default function App() {
+  // Точная высота видимой области для полноэкранного hero на iOS
+  useEffect(() => {
+    const setH = () => document.documentElement.style.setProperty('--app-h', `${window.innerHeight}px`)
+    setH()
+    window.addEventListener('resize', setH)
+    window.addEventListener('orientationchange', setH)
+    return () => {
+      window.removeEventListener('resize', setH)
+      window.removeEventListener('orientationchange', setH)
+    }
+  }, [])
+
   return (
     <div className="overflow-x-hidden">
       <Header />

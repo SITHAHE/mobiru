@@ -43,9 +43,13 @@ body {
 
 ::selection { background: color-mix(in srgb, var(--color-brand-500) 25%, transparent); }
 
-/* Полноэкранный hero: фолбэк 100vh, но где поддерживается — динамическая 100dvh
-   (точно равна видимой области на iOS, без «подглядывающего» блока снизу). */
-.h-hero { min-height: 100vh; min-height: 100dvh; }
+/* Полноэкранный hero на iOS.
+   .hero-fill — секция на всю высоту экрана, ВКЛЮЧАЯ зону под полупрозрачной
+   панелью Safari (там чёрное видео, а не следующий блок).
+   .hero-visible — область контента = видимая часть экрана (--app-h ставит JS
+   по window.innerHeight), чтобы кнопки не уходили под панель. */
+.hero-fill { min-height: 100vh; min-height: 100lvh; }
+.hero-visible { min-height: 100vh; min-height: 100svh; min-height: var(--app-h, 100dvh); }
 
 .container-x { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 1.25rem; }
 @media (min-width: 768px){ .container-x { padding-inline: 2rem; } }
