@@ -107,18 +107,31 @@ function Header() {
 const HERO_CHIPS = ['Бесплатная диагностика', 'Ремонт от 20 минут', 'Гарантия до 12 мес.']
 
 function Hero() {
+  // на iPhone в режиме энергосбережения автозапуск блокируется и iOS рисует
+  // свою кнопку «play». Показываем поверх статичный кадр (= первый кадр видео):
+  // если видео не заигралось — кадр остаётся и прячет нативную кнопку.
+  const [playing, setPlaying] = useState(false)
+  const media = import.meta.env.BASE_URL
+  const videoPos = 'absolute inset-y-0 right-0 h-full w-full object-cover object-[66%_center] md:w-[68%] md:object-[54%_center]'
   return (
     <section id="top" className="relative flex min-h-[100svh] items-end overflow-hidden bg-black md:items-center">
       {/* ---- видео: на мобиле фон, на ПК — крупный блок справа (айфон уходит вправо) ---- */}
       <video
-        className="absolute inset-y-0 right-0 h-full w-full object-cover object-[66%_center] md:w-[68%] md:object-[54%_center]"
-        src={`${import.meta.env.BASE_URL}media/hero.mp4`}
+        className={videoPos}
+        src={`${media}media/hero.mp4`}
+        poster={`${media}img/hero-poster.jpg`}
         autoPlay muted playsInline preload="auto"
+        onPlaying={() => setPlaying(true)}
+      />
+      {/* статичный кадр-заглушка поверх видео (виден, пока видео не пошло) */}
+      <img
+        src={`${media}img/hero-poster.jpg`} alt="" aria-hidden="true"
+        className={`${videoPos} z-[1] transition-opacity duration-500 ${playing ? 'opacity-0' : 'opacity-100'}`}
       />
 
       {/* На ПК подложки нет — видео чистое, читаемость даёт мягкая тень текста.
           На мобиле видео идёт фоном, поэтому нужен лёгкий градиент снизу под текст. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent md:hidden" />
+      <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-black via-black/45 to-transparent md:hidden" />
 
       {/* ---- текст поверх видео, слева (на ПК ближе к краю, шире и крупнее) ---- */}
       <div className="relative z-10 w-full px-6 pb-20 pt-28 sm:px-10 md:py-0 lg:pl-16 xl:pl-24">
