@@ -125,7 +125,7 @@ function Hero() {
         <div className="max-w-[34rem] md:max-w-3xl">
           <motion.a href={REVIEW_STATS.yandex.href} target="_blank" rel="noreferrer"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.08] px-4 py-1.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.08] px-4 py-1.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10 sm:mb-8"
           >
             <Stars n={5} className="scale-90" />
             {CONTACTS.rating} · {CONTACTS.reviewsCount} отзывов на Яндексе
@@ -140,7 +140,7 @@ function Hero() {
 
           <motion.p
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.12, ease }}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 [text-shadow:0_1px_16px_rgba(0,0,0,0.6)] sm:text-xl"
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 [text-shadow:0_1px_16px_rgba(0,0,0,0.6)] sm:mt-8 sm:text-xl"
           >
             iPhone, Samsung, Xiaomi и ещё 20+ брендов. Бесплатная диагностика,
             честная цена и гарантия до года.
@@ -148,7 +148,7 @@ function Hero() {
 
           <motion.div
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+            className="mt-9 flex flex-col gap-3 sm:mt-12 sm:flex-row sm:items-center"
           >
             <a href="#calc"
               className="pulse-ring group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-bold text-brand-800 shadow-glow transition hover:-translate-y-0.5">
@@ -163,7 +163,7 @@ function Hero() {
 
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-9 hidden flex-wrap gap-x-6 gap-y-3 sm:flex"
+            className="hidden flex-wrap gap-x-6 gap-y-3 sm:mt-14 sm:flex"
           >
             {HERO_CHIPS.map((c) => (
               <span key={c} className="inline-flex items-center gap-2 text-sm font-semibold text-white/80">
@@ -834,9 +834,9 @@ export default function App() {
       <main className="pb-16 md:pb-0">
         <Hero />
         <TrustStrip />
-        <Services />
         <Calculator />
         <PriceHighlights />
+        <Services />
         <WhyUs />
         <Process />
         <Reviews />
