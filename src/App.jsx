@@ -114,7 +114,7 @@ function Hero() {
   const media = import.meta.env.BASE_URL
   const videoPos = 'absolute inset-y-0 right-0 h-full w-full object-cover object-[66%_center] md:w-[68%] md:object-[54%_center]'
   return (
-    <section id="top" className="relative flex min-h-[100svh] items-end overflow-hidden bg-black md:items-center">
+    <section id="top" className="h-hero relative flex items-end overflow-hidden bg-black md:items-center">
       {/* ---- видео: на мобиле фон, на ПК — крупный блок справа (айфон уходит вправо) ---- */}
       <video
         className={videoPos}
