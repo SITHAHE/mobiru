@@ -121,11 +121,11 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent md:hidden" />
 
       {/* ---- текст поверх видео, слева (на ПК ближе к краю, шире и крупнее) ---- */}
-      <div className="relative z-10 w-full px-6 pb-32 pt-28 sm:px-10 md:py-0 lg:pl-16 xl:pl-24">
+      <div className="relative z-10 w-full px-6 pb-20 pt-28 sm:px-10 md:py-0 lg:pl-16 xl:pl-24">
         <div className="max-w-[34rem] md:max-w-3xl">
           <motion.a href={REVIEW_STATS.yandex.href} target="_blank" rel="noreferrer"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.08] px-4 py-1.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10 sm:mb-8"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.08] px-4 py-1.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
           >
             <Stars n={5} className="scale-90" />
             {CONTACTS.rating} · {CONTACTS.reviewsCount} отзывов на Яндексе
@@ -140,7 +140,7 @@ function Hero() {
 
           <motion.p
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.12, ease }}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 [text-shadow:0_1px_16px_rgba(0,0,0,0.6)] sm:mt-8 sm:text-xl"
+            className="mt-7 max-w-2xl text-lg leading-relaxed text-white/80 [text-shadow:0_1px_16px_rgba(0,0,0,0.6)] sm:mt-8 sm:text-xl"
           >
             iPhone, Samsung, Xiaomi и ещё 20+ брендов. Бесплатная диагностика,
             честная цена и гарантия до года.
@@ -148,7 +148,7 @@ function Hero() {
 
           <motion.div
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease }}
-            className="mt-9 flex flex-col gap-3 sm:mt-12 sm:flex-row sm:items-center"
+            className="mt-10 flex flex-col gap-3.5 sm:mt-12 sm:flex-row sm:items-center sm:gap-3"
           >
             <a href="#calc"
               className="pulse-ring group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-base font-bold text-brand-800 shadow-glow transition hover:-translate-y-0.5">
@@ -808,8 +808,16 @@ function Footer() {
 
 /* ========================================================= MOBILE CTA BAR */
 function MobileBar() {
+  // прячем панель на hero, показываем после прокрутки — чтобы первый экран дышал
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.75)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
   return (
-    <div className="pad-safe fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden"
+    <div className={`pad-safe fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur transition-transform duration-300 ease-out md:hidden ${show ? 'translate-y-0' : 'translate-y-full'}`}
       style={{ paddingBottom: 'max(.5rem, env(safe-area-inset-bottom))' }}>
       <div className="grid grid-cols-3 gap-2 px-3 py-2">
         <a href={CONTACTS.phoneHref} className="flex flex-col items-center gap-0.5 rounded-xl py-2 text-[11px] font-bold text-brand-700">
